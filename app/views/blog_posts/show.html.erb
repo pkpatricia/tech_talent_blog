@@ -1,31 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @blog_post.title %>
-</p>
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    <%= @blog_post.title %>
+  </div>
+  <div class="panel-body">
+    <p>by <strong><%= link_to @blog_post.user.username, user_posts_path(id: @blog_post.user.id %></strong>
+    <span class="posted-at">posted at:  <%= @blog_post.created_at.time.strftime("%B %-d, %Y %-l:%M%P") %></span>
+    <p><%= @blog_post.blog_entry %></p>
+  </div>
+</div>
 
-<p>
-  <strong>Author:</strong>
-  <%= @blog_post.author %>
-</p>
-
-<p>
-  <strong>Blog entry:</strong>
-  <%= @blog_post.blog_entry %>
-</p>
- <div>
-   <%= render 'comments/form' %>
- </div>
- 
- <div class="panel panel-default">
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    Make A Comment
+  </div>
+  <div class="panel-body">
+    <%= render 'comments/form' %>
+  </div>
+</div>
+   
+   
+   
+ <div class="panel panel-danger">
    <div class="panel-heading">
      Comments.
    </div>
    <% @blog_post.comments.each do |comment| %>
    <div class="panel-body">
-     <p><strong><%= comment.author %></strong> said: </p>
+     <p><strong><%= link_to comment.user.username, user_posts_path(id: comment.user.id %></strong> said: </p>
      <p><%= comment.comment_entry %></p>
+     <p><%= comment.created_at.strftime("%B %-d, %Y %-l:%M%P") %></p>
    </div>
    <%end%>
    </div>
